@@ -35,8 +35,5 @@ if( NOT CGAL_COMMON_FILE_INCLUDED )
     endif()
     hide_variable(CMAKE_UNAME)
   endif()
-
-  # set minimal version of some optional libraries:
-  set( Eigen3_FIND_VERSION "3.1.0")
   
 endif()
