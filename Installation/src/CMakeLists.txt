@@ -83,7 +83,7 @@ function (collect_cgal_library LIBRARY_NAME ADDITIONAL_FILES)
       OUTPUT_NAME_RELWITHDEBINFO "${RELEASE_MANGLED_NAME}" 
       )
     
-    if ( HAS_CFG_INTDIR )
+    if ( NOT "${CMAKE_CFG_INTDIR}" STREQUAL "." )
       add_custom_command(TARGET ${LIBRARY_NAME} POST_BUILD COMMAND if exist \"$(TargetDir)$(TargetName).dll\" copy /Y \"$(TargetDir)$(TargetName).dll\" \"$(TargetDir)..\" )
       add_custom_command(TARGET ${LIBRARY_NAME} POST_BUILD COMMAND if exist \"$(TargetDir)$(TargetName).pdb\" copy /Y \"$(TargetDir)$(TargetName).pdb\" \"$(TargetDir)..\" )
       add_custom_command(TARGET ${LIBRARY_NAME} POST_BUILD COMMAND if exist \"$(SolutionDir)lib\\$(ConfigurationName)\\$(TargetName).lib\" copy /Y \"$(SolutionDir)lib\\$(ConfigurationName)\\$(TargetName).lib\" \"$(SolutionDir)lib\" )
