@@ -8,7 +8,18 @@ if ( NOT FIND_OPENGL_WRAPPER )
   
   find_package(OpenGL)
   
-  if ( OPENGL_FOUND AND CGAL_APPLE_LEOPARD )
+  # From james Bigler, in the cmake users list.
+  IF (APPLE)
+    exec_program(uname ARGS -v  OUTPUT_VARIABLE DARWIN_VERSION)
+    string(REGEX MATCH "[0-9]+" DARWIN_VERSION ${DARWIN_VERSION})
+    message(STATUS "DARWIN_VERSION=${DARWIN_VERSION}")
+    if (DARWIN_VERSION GREATER 8)
+      message(STATUS "Mac Leopard detected")
+      set(OPENGL_APPLE_LEOPARD 1)
+    endif()
+  endif()
+
+  if ( OPENGL_FOUND AND OPENGL_APPLE_LEOPARD )
   
     if ( BUILD_SHARED_LIBS )
     
