@@ -423,11 +423,6 @@ if( MSVC )
   uniquely_add_flags ( CGAL_CXX_FLAGS "/wd4503" ) # Suppress warnings C4503 about "decorated name length exceeded"
   uniquely_add_flags ( CGAL_CXX_FLAGS "/bigobj" ) # Use /bigobj by default
 
-  if ( RUNNING_CGAL_AUTO_TEST )
-    set(CMAKE_CXX_WARNING_LEVEL 2 CACHE STRING "MSVC C++ compiler warning level" FORCE)
-    mark_as_advanced(CMAKE_CXX_WARNING_LEVEL)
-  endif()
-    
 endif()
 
 if( "${CMAKE_CXX_COMPILER_ID}" MATCHES SunPro )
