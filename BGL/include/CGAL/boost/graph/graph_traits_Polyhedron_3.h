@@ -21,6 +21,10 @@
 #define CGAL_BOOST_GRAPH_GRAPH_TRAITS_POLYHEDRON_3_H
 
 #include <CGAL/boost/graph/graph_traits_HalfedgeDS.h>
+// ATTN: <CGAL/boost/graph/iterator.h> is included at the end of this
+// file, because we need to fix some calls in that file instead of
+// using ADL on broken compilers, hence those calls need to declared
+// before that.
 
 #include <CGAL/Polyhedron_3.h>
 #include <CGAL/Iterator_range.h>
@@ -487,6 +491,7 @@ namespace boost {
 
 #undef CGAL_HDS_PARAM_
 
+#include <CGAL/boost/graph/iterator.h>
 #include <CGAL/boost/graph/properties_Polyhedron_3.h>
 
 #endif // CGAL_BOOST_GRAPH_GRAPH_TRAITS_POLYHEDRON_3_H

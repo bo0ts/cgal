@@ -29,7 +29,6 @@
 #include <boost/graph/properties.hpp>
 
 #include <CGAL/basic.h>
-#include <CGAL/boost/graph/iterator.h>
 
 #include <CGAL/Handle_hash_function.h>
 
@@ -38,6 +37,15 @@
 #endif
 
 namespace CGAL {
+
+// ATTN: This file depends on CGAL/boost/graph/iterator.h, but we
+// CANNOT include that file here or at the end, since we never define
+// next/prev for a HDS. We include iterator.h at the end of
+// graph_traits_Polyhedron_3.h.
+template<typename Graph>
+class In_edge_iterator;
+template<typename Graph>
+class Out_edge_iterator;
 
 namespace internal {
 
