@@ -9,7 +9,6 @@
 # TODO: support MacOSX
 
 include(FindPackageHandleStandardArgs)
-include(CGAL_GeneratorSpecificSettings)
 
 if(GMP_INCLUDE_DIR)
   set(GMP_in_cache TRUE)

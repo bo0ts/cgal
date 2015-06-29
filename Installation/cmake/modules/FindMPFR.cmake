@@ -8,7 +8,6 @@
 # TODO: support MacOSX
 
 include(FindPackageHandleStandardArgs)
-include(CGAL_GeneratorSpecificSettings)
 
 if(MPFR_INCLUDE_DIR)
   set(MPFR_in_cache TRUE)

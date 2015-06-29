@@ -15,9 +15,7 @@
 
 include(CheckFunctionExists)
 
-include(CGAL_GeneratorSpecificSettings)
 include(CGAL_Macros)
-
 
 # This macro checks for the existence of the combination of fortran libraries
 # given by _list.  If the combination is found, this macro checks (using the
