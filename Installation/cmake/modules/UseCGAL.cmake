@@ -12,7 +12,6 @@ cgal_setup_module_path()
 if(NOT USE_CGAL_FILE_INCLUDED)
   set(USE_CGAL_FILE_INCLUDED 1)
 
-  include(CGAL_Common)
   include(CGAL_SetupFlags)
   include(CGAL_GeneratorSpecificSettings)
   include(CGAL_TweakFindBoost)
