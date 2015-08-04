@@ -470,9 +470,9 @@ if(CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
     scene_implicit_function_item
     scene_polylines_item
     NAMESPACE Polyhedron_
-    FILE polyhedron_demo_targets.cmake)
+    FILE CGALPolyhedronDemoTargets.cmake)
 
-  configure_file(CGAL_polyhedron_demoConfig.cmake.in  CGAL_polyhedron_demoConfig.cmake)
+  configure_file(CGAL_polyhedron_demoConfig.cmake.in CGAL_polyhedron_demoConfig.cmake @ONLY)
 
 else(CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 
