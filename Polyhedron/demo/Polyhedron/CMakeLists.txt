@@ -43,6 +43,11 @@ if(POLYHEDRON_QTSCRIPT_DEBUGGER)
 endif()
 find_package(CGAL COMPONENTS Qt5)
 include(${CGAL_USE_FILE})
+
+# A variable that contains all imported CGAL targets which we use
+# instead of library names.
+set(CGAL_TARGETS "CGAL::CGAL;CGAL::CGAL_Qt5")
+
 find_package(Qt5 QUIET COMPONENTS OpenGL Script Svg Xml ScriptTools)
 
 # Find OpenGL
@@ -127,10 +132,10 @@ if(CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
   add_library(scene_basic_objects SHARED
     Scene_plane_item.cpp
     #Scene_plane_item.moc
-)
+    )
   target_link_libraries(scene_basic_objects 
     demo_framework
-    ${CGAL_LIBRARIES}
+    ${CGAL_TARGETS}
     ${QGLVIEWER_LIBRARIES}
     ${QT_LIBRARIES}
     ${OPENGL_gl_LIBRARY}
@@ -144,7 +149,7 @@ if(CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
   macro(add_item item_name)
     add_library(${item_name} SHARED ${ARGN})
     qt5_use_modules(${item_name} OpenGL Gui Xml Script Widgets)
-    target_link_libraries(${item_name} demo_framework ${QT_LIBRARIES} ${CGAL_LIBRARIES} ${Boost_LIBRARIES})
+    target_link_libraries(${item_name} demo_framework ${QT_LIBRARIES} ${CGAL_TARGETS} ${Boost_LIBRARIES})
   endmacro(add_item)
 
   add_item(scene_c2t3_item Scene_c2t3_item.cpp)# Scene_c2t3_item.moc)
@@ -227,7 +232,7 @@ if(CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
   target_link_libraries( Polyhedron_3 point_dialog )
 
   # Link with CGAL
-  target_link_libraries( Polyhedron_3 ${CGAL_LIBRARIES} ${CGAL_3RD_PARTY_LIBRARIES} )
+  target_link_libraries( Polyhedron_3 ${CGAL_TARGETS} ${CGAL_3RD_PARTY_LIBRARIES} )
 
   # Link with libQGLViewer, OpenGL
   target_link_libraries( Polyhedron_3 ${QGLVIEWER_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} )
@@ -457,12 +462,6 @@ if(CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 #
 # Exporting
 #
-  if(TARGET CGAL_Qt5)
-    export(TARGETS CGAL_Qt5 FILE polyhedron_demo_targets.cmake NAMESPACE Polyhedron_)
-    export(TARGETS CGAL CGAL_Qt5 FILE polyhedron_demo_targets.cmake NAMESPACE Polyhedron_)
-  else()
-    export(TARGETS FILE polyhedron_demo_targets.cmake)
-  endif()
   export(
     TARGETS
     demo_framework
@@ -471,7 +470,7 @@ if(CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
     scene_implicit_function_item
     scene_polylines_item
     NAMESPACE Polyhedron_
-    APPEND FILE polyhedron_demo_targets.cmake)
+    FILE polyhedron_demo_targets.cmake)
 
   configure_file(CGAL_polyhedron_demoConfig.cmake.in  CGAL_polyhedron_demoConfig.cmake)
 
