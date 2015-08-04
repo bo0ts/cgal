@@ -1,6 +1,6 @@
 # This is the CMake script for compiling the CGAL Polyhedron demo.
 
-project( Polyhedron )
+project(Polyhedron)
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # Instruct CMake to run moc automatically when needed.
@@ -24,25 +24,25 @@ endif()
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 
 # Include this package's headers first
-include_directories( BEFORE ./ ./include ../../include ./CGAL_demo )
+include_directories(BEFORE ./ ./include ../../include ./CGAL_demo)
 
-add_subdirectory( implicit_functions )
+add_subdirectory(implicit_functions)
 
 # Find CGAL
 
-option( POLYHEDRON_QTSCRIPT_DEBUGGER 
+option(POLYHEDRON_QTSCRIPT_DEBUGGER
   "Activate the use of Qt Script Debugger in Polyhedron_3 demo" OFF)
 
 # Find Qt5 itself
-set( QT_USE_QTXML    TRUE )
-set( QT_USE_QTMAIN   TRUE )
-set( QT_USE_QTSCRIPT  TRUE )
-set( QT_USE_QTOPENGL  TRUE )
-if( POLYHEDRON_QTSCRIPT_DEBUGGER)
-  set( QT_USE_QTSCRIPTTOOLS  TRUE )
+set(QT_USE_QTXML     TRUE)
+set(QT_USE_QTMAIN    TRUE)
+set(QT_USE_QTSCRIPT  TRUE)
+set(QT_USE_QTOPENGL  TRUE)
+if(POLYHEDRON_QTSCRIPT_DEBUGGER)
+  set(QT_USE_QTSCRIPTTOOLS  TRUE)
 endif()
 find_package(CGAL COMPONENTS Qt5)
-include( ${CGAL_USE_FILE} )
+include(${CGAL_USE_FILE})
 find_package(Qt5 QUIET COMPONENTS OpenGL Script Svg Xml ScriptTools)
 
 # Find OpenGL
@@ -50,16 +50,14 @@ find_package(OpenGL)
 
 # Find QGLViewer
 if(Qt5_FOUND)
-
   add_definitions(-DQT_NO_KEYWORDS)
-  include_directories( ${QT_INCLUDE_DIR}/QtScriptTools )
-  find_package(QGLViewer )
-
+  include_directories( ${QT_INCLUDE_DIR}/QtScriptTools)
+  find_package(QGLViewer)
 endif(Qt5_FOUND)
 
 find_package(Eigen3 3.1.0) #(requires 3.1.0 or greater)
-if (EIGEN3_FOUND)
-  include( ${EIGEN3_USE_FILE} )
+if(EIGEN3_FOUND)
+  include(${EIGEN3_USE_FILE})
 endif(EIGEN3_FOUND)
 
 
@@ -68,7 +66,7 @@ if(CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
   set(Boost_USE_MULTITHREADED      ON)
   find_package(Boost COMPONENTS thread system)
 
-  include_directories ( ${QGLVIEWER_INCLUDE_DIR} )
+  include_directories(${QGLVIEWER_INCLUDE_DIR})
 
   qt5_wrap_ui( MainWindowUI_files MainWindow.ui )
   qt5_wrap_ui( FileLoaderDialogUI_files FileLoaderDialog.ui )
@@ -99,7 +97,7 @@ if(CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
   include( ${CMAKE_CURRENT_SOURCE_DIR}/polyhedron_demo_macros.cmake )
 
 
-  qt5_add_resources ( RESOURCE_FILES Polyhedron_3.qrc )
+  qt5_add_resources( RESOURCE_FILES Polyhedron_3.qrc )
 
   qt5_generate_moc( "CGAL_demo/Viewer_interface.h" "${CMAKE_CURRENT_BINARY_DIR}/Viewer_interface_moc.cpp" )
 
@@ -253,16 +251,16 @@ if(CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 
   target_link_libraries( camera_positions_plugin ${QGLVIEWER_LIBRARIES} demo_framework)
 
-  if ( Boost_VERSION GREATER 103400 )
+  if(Boost_VERSION GREATER 103400)
     qt5_generate_moc( "Polyhedron_demo_mesh_3_plugin_cgal_code.cpp" "${CMAKE_CURRENT_BINARY_DIR}/Scene_c3t3_item.moc" )
 
     polyhedron_demo_plugin(mesh_3_plugin Polyhedron_demo_mesh_3_plugin 
       Polyhedron_demo_mesh_3_plugin_cgal_code.cpp #Scene_c3t3_item.moc
       ${meshingUI_FILES})
     target_link_libraries(mesh_3_plugin scene_polyhedron_item scene_polygon_soup_item ${QGLVIEWER_LIBRARIES} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY})
-  else( Boost_VERSION GREATER 103400 )
+  else(Boost_VERSION GREATER 103400)
     message(STATUS "warning: the plugin mesh_3_plugin requires Boost>=1.34.1 and will not be compiled.")
-  endif( Boost_VERSION GREATER 103400 )
+  endif(Boost_VERSION GREATER 103400)
 
   polyhedron_demo_plugin(inside_out_plugin Polyhedron_demo_inside_out_plugin)
   target_link_libraries(inside_out_plugin scene_polyhedron_item scene_polygon_soup_item)
@@ -313,8 +311,8 @@ if(CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
   target_link_libraries(pca_plugin scene_polyhedron_item scene_basic_objects)
 
   qt5_wrap_ui( advancing_frontUI_FILES Polyhedron_demo_advancing_front_plugin.ui)
-    polyhedron_demo_plugin(advancing_front_plugin Polyhedron_demo_advancing_front_plugin ${advancing_frontUI_FILES})
-    target_link_libraries(advancing_front_plugin scene_polygon_soup_item scene_points_with_normal_item)
+  polyhedron_demo_plugin(advancing_front_plugin Polyhedron_demo_advancing_front_plugin ${advancing_frontUI_FILES})
+  target_link_libraries(advancing_front_plugin scene_polygon_soup_item scene_points_with_normal_item)
 
   if(EIGEN3_FOUND)
     qt5_wrap_ui( scale_spaceUI_FILES Polyhedron_demo_scale_space_reconstruction_plugin.ui)
@@ -402,7 +400,7 @@ if(CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
   polyhedron_demo_plugin(trivial_plugin Polyhedron_demo_trivial_plugin)
 
   # Edit polyhedron scene item and plugin
-  if ( EIGEN3_FOUND AND "${EIGEN3_VERSION}" VERSION_GREATER "3.1.90" )
+  if(EIGEN3_FOUND AND "${EIGEN3_VERSION}" VERSION_GREATER "3.1.90")
     qt5_wrap_ui( editionUI_FILES Deform_mesh.ui )
     #qt5_automoc( Scene_edit_polyhedron_item.cpp )
     add_item(scene_edit_polyhedron_item Scene_edit_polyhedron_item.cpp #Scene_edit_polyhedron_item.moc
@@ -477,7 +475,7 @@ if(CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 
   configure_file(CGAL_polyhedron_demoConfig.cmake.in  CGAL_polyhedron_demoConfig.cmake)
 
-else (CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
+else(CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 
   set(POLYHEDRON_MISSING_DEPS "")
 
@@ -500,4 +498,4 @@ else (CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
   message(STATUS "NOTICE: This demo requires ${POLYHEDRON_MISSING_DEPS}and will not be compiled.")
 
 
-endif (CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
+endif(CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
