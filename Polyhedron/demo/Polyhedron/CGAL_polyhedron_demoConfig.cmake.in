@@ -8,3 +8,5 @@ set(CGAL_POLYHEDRON_DEMO_USE_FILE "${CMAKE_CURRENT_LIST_DIR}/UseCGAL_polyhedron_
 if(NOT TARGET Polyhedron_demo_framework)
   include("${CMAKE_CURRENT_LIST_DIR}/CGALPolyhedronDemoTargets.cmake")
 endif()
+
+include("@CMAKE_CURRENT_SOURCE_DIR@/polyhedron_demo_macros.cmake")
