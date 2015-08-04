@@ -113,11 +113,10 @@ if(CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
     Viewer_interface_moc.cpp
     Scene_item.cpp #Scene_item.moc
     Polyhedron_demo_plugin_helper.cpp)
-    qt5_use_modules(demo_framework OpenGL Gui Widgets Script Xml)
+  qt5_use_modules(demo_framework OpenGL Gui Widgets Script Xml)
 
   target_link_libraries(demo_framework
     ${QGLVIEWER_LIBRARIES}
-    ${QT_LIBRARIES}
     ${OPENGL_gl_LIBRARY}
     ${OPENGL_glu_LIBRARY}
     )
@@ -130,19 +129,17 @@ if(CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
     demo_framework
     ${CGAL_TARGETS}
     ${QGLVIEWER_LIBRARIES}
-    ${QT_LIBRARIES}
     ${OPENGL_gl_LIBRARY}
     ${OPENGL_glu_LIBRARY}
     )
   qt5_use_modules(scene_basic_objects OpenGL Gui Xml Script Widgets)
   add_library(point_dialog SHARED Show_point_dialog.cpp Show_point_dialog.ui ${Show_point_dialogUI_FILES})
   qt5_use_modules(point_dialog OpenGL Gui Xml Script Widgets)
-  target_link_libraries(point_dialog ${QT_LIBRARIES})
 
   macro(add_item item_name)
     add_library(${item_name} SHARED ${ARGN})
     qt5_use_modules(${item_name} OpenGL Gui Xml Script Widgets)
-    target_link_libraries(${item_name} demo_framework ${QT_LIBRARIES} ${CGAL_TARGETS} ${Boost_LIBRARIES})
+    target_link_libraries(${item_name} demo_framework ${CGAL_TARGETS} ${Boost_LIBRARIES})
   endmacro(add_item)
 
   add_item(scene_c2t3_item Scene_c2t3_item.cpp)# Scene_c2t3_item.moc)
@@ -219,7 +216,6 @@ if(CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
   if(POLYHEDRON_QTSCRIPT_DEBUGGER)
     target_link_libraries(Polyhedron_3 Qt5::ScriptTools)
   endif()
-  target_link_libraries( Polyhedron_3 ${QT_LIBRARIES} )
   target_link_libraries( Polyhedron_3 demo_framework )
   target_link_libraries( Polyhedron_3 point_dialog )
 
