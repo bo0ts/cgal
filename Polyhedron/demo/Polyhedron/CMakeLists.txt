@@ -28,19 +28,9 @@ include_directories(BEFORE ./ ./include ../../include ./CGAL_demo)
 
 add_subdirectory(implicit_functions)
 
-# Find CGAL
-
 option(POLYHEDRON_QTSCRIPT_DEBUGGER
   "Activate the use of Qt Script Debugger in Polyhedron_3 demo" OFF)
 
-# Find Qt5 itself
-set(QT_USE_QTXML     TRUE)
-set(QT_USE_QTMAIN    TRUE)
-set(QT_USE_QTSCRIPT  TRUE)
-set(QT_USE_QTOPENGL  TRUE)
-if(POLYHEDRON_QTSCRIPT_DEBUGGER)
-  set(QT_USE_QTSCRIPTTOOLS  TRUE)
-endif()
 find_package(CGAL COMPONENTS Qt5)
 include(${CGAL_USE_FILE})
 
