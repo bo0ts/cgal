@@ -38,7 +38,11 @@ include(${CGAL_USE_FILE})
 # instead of library names.
 set(CGAL_TARGETS "CGAL::CGAL;CGAL::CGAL_Qt5")
 
-find_package(Qt5 QUIET COMPONENTS OpenGL Script Svg Xml ScriptTools)
+if(POLYHEDRON_QTSCRIPT_DEBUGGER)
+  find_package(Qt5 QUIET COMPONENTS OpenGL Script Svg Xml ScriptTools)
+else()
+  find_package(Qt5 QUIET COMPONENTS OpenGL Script Svg Xml)
+endif()
 
 # Find OpenGL
 find_package(OpenGL)
@@ -46,7 +50,6 @@ find_package(OpenGL)
 # Find QGLViewer
 if(Qt5_FOUND)
   add_definitions(-DQT_NO_KEYWORDS)
-  include_directories( ${QT_INCLUDE_DIR}/QtScriptTools)
   find_package(QGLViewer)
 endif(Qt5_FOUND)
 
@@ -213,9 +216,8 @@ if(CGAL_Qt5_FOUND AND Qt5_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 
 
   # Link with Qt libraries
-  if( POLYHEDRON_QTSCRIPT_DEBUGGER )
-    add_definitions( -DQT_SCRIPTTOOLS_LIB )
-    target_link_libraries( Polyhedron_3 QtScriptTools )
+  if(POLYHEDRON_QTSCRIPT_DEBUGGER)
+    target_link_libraries(Polyhedron_3 Qt5::ScriptTools)
   endif()
   target_link_libraries( Polyhedron_3 ${QT_LIBRARIES} )
   target_link_libraries( Polyhedron_3 demo_framework )
