@@ -3,13 +3,6 @@ if( NOT CGAL_MACROS_FILE_INCLUDED )
 
   include("${CGAL_MODULES_DIR}/CGAL_VersionUtils.cmake")
 
-  # Probably unused. -- Laurent Rineau, 2011/07/21
-  macro(assert _arg )
-    if ( NOT ${_arg} )
-      message( FATAL_ERROR "Variable ${_arg} must be defined" )
-    endif()
-  endmacro()
-
   macro( hide_variable var )
     set ( ${var} ${${var}} CACHE INTERNAL "Variable hidden from user" FORCE )
   endmacro()
