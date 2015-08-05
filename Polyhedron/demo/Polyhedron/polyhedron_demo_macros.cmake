@@ -4,6 +4,7 @@ endif()
 set(POLYHEDRON_DEMO_MACROS_INCLUDED TRUE)
 
 include(AddFileDependencies)
+include(${CGAL_MODULES_DIR}/CGAL_Macros.cmake) # for list_split
 
 macro(polyhedron_demo_plugin plugin_name plugin_implementation_base_name)
   list_split(option ARGN_TAIL ${ARGN} )
