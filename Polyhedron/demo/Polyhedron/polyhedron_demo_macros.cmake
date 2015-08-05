@@ -36,11 +36,11 @@ macro(polyhedron_demo_plugin plugin_name plugin_implementation_base_name)
   add_to_cached_list( CGAL_EXECUTABLE_TARGETS ${plugin_name} )
   # Link with Qt
   target_link_libraries( ${plugin_name} ${QT_LIBRARIES} )
-  # Link with the demo_framework
+  # Link with the demo_framework or Polyhedron::demo_framework
   if(TARGET demo_framework)
     target_link_libraries( ${plugin_name} demo_framework)
   else()
-    target_link_libraries( ${plugin_name} Polyhedron_demo_framework)
+    target_link_libraries( ${plugin_name} Polyhedron::demo_framework)
   endif()
   # Link with CGAL
   target_link_libraries( ${plugin_name} ${CGAL_LIBRARIES} ${CGAL_3RD_PARTY_LIBRARIES} )
