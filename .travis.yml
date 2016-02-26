@@ -7,8 +7,8 @@ before_script:
   - cmake -DWITH_examples=ON -DWITH_tests=ON ..
 script:
   - make
-  - make examples
-  - make tests
+  - make -k examples
+  - make -k tests
 compiler:
   - clang
   - gcc
